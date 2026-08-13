@@ -1,5 +1,6 @@
 ---
 import { asset } from '../lib/assets';
+import Button from './Button.astro';
 
 interface NavItem {
 	href: string;
@@ -16,8 +17,6 @@ const contactLink: NavItem = { href: '/#kapcsolat', label: 'Kapcsolat' };
 
 const linkClass =
 	'rounded-full px-5 py-4 text-center text-base font-medium leading-none text-body-dark transition-colors hover:bg-accent-main/34 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-main';
-const contactClass =
-	'inline-block rounded-full bg-accent-main px-6 py-4 text-center text-base font-medium leading-none text-body-light transition-colors hover:bg-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-main lg:ml-4';
 ---
 
 <header
@@ -54,7 +53,7 @@ const contactClass =
 							</a>
 						))
 					}
-					<a href={contactLink.href} class={contactClass}>{contactLink.label}</a>
+					<Button href={contactLink.href} class="lg:ml-4">{contactLink.label}</Button>
 				</div>
 			</div>
 		</nav>
