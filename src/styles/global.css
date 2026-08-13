@@ -6,11 +6,13 @@
   --color-accent-dark: #004cc2;
   --color-surface-tint: #e6f0ff;
   --color-surface-white: #ffffff;
+  --color-surface-grey: #f3f3f3;
   --color-body-dark: #333333;
   --color-body-light: #ffffff;
   --color-border-subtle: #dddddd;
   --font-sans: "PT Sans", sans-serif;
   --font-heading: "PT Sans", sans-serif;
+  --max-width-content: 1440px;
 }
 
 @font-face {

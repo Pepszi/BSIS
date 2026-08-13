@@ -1,0 +1,87 @@
+---
+import { asset } from '../lib/assets';
+
+interface NavItem {
+	href: string;
+	label: string;
+}
+
+const navLinks: NavItem[] = [
+	{ href: '/#tevekenysegek', label: 'Tevékenységek' },
+	{ href: '/#referenciak', label: 'Referenciák' },
+	{ href: '/rolunk', label: 'Rólunk' },
+];
+
+const contactLink: NavItem = { href: '/#kapcsolat', label: 'Kapcsolat' };
+
+const linkClass =
+	'rounded-full px-5 py-4 text-center text-base font-medium leading-none text-body-dark transition-colors hover:bg-accent-main/34 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-main';
+const contactClass =
+	'inline-block rounded-full bg-accent-main px-6 py-4 text-center text-base font-medium leading-none text-body-light transition-colors hover:bg-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-main lg:ml-4';
+---
+
+<header
+	data-header
+	class="group/header sticky top-0 z-50 border-b border-border-subtle bg-surface-white"
+>
+	<div
+		class="relative mx-auto flex max-w-content items-center justify-between py-2 pr-2 pl-5 md:px-8 lg:px-16"
+	>
+		<a href="/" aria-label="BSIS logó" class="relative z-10 shrink-0">
+			<img
+				src={asset('global/logo.png')}
+				alt="BSIS logó"
+				width="96"
+				height="36"
+				class="h-auto w-24"
+			/>
+		</a>
+
+		<nav
+			id="site-nav"
+			data-nav
+			aria-label="Fő navigáció"
+			class="max-lg:pointer-events-none max-lg:absolute max-lg:top-full max-lg:left-1/2 max-lg:grid max-lg:w-screen max-lg:-translate-x-1/2 max-lg:grid-rows-[0fr] max-lg:transition-[grid-template-rows] max-lg:duration-[400ms] max-lg:ease-out motion-reduce:max-lg:transition-none group-data-[nav-open]/header:max-lg:pointer-events-auto group-data-[nav-open]/header:max-lg:grid-rows-[1fr] lg:flex lg:flex-row lg:items-center"
+		>
+			<div class="min-h-0 overflow-hidden lg:contents">
+				<div
+					class="flex flex-col items-center gap-8 bg-surface-grey px-4 py-8 max-lg:rounded-b-[2.5rem] lg:flex-row lg:gap-0 lg:bg-transparent lg:px-0 lg:py-0 lg:rounded-none"
+				>
+					{
+						navLinks.map((item) => (
+							<a href={item.href} class={linkClass}>
+								{item.label}
+							</a>
+						))
+					}
+					<a href={contactLink.href} class={contactClass}>{contactLink.label}</a>
+				</div>
+			</div>
+		</nav>
+
+		<button
+			type="button"
+			data-nav-toggle
+			class="relative z-10 flex h-[60px] w-[60px] items-center justify-end lg:hidden"
+			aria-controls="site-nav"
+			aria-expanded="false"
+			aria-label="Menü megnyitása"
+		>
+			<span class="flex w-6 flex-col items-end gap-[5px]" aria-hidden="true">
+				<span
+					class="block h-[3px] w-6 rounded-full bg-accent-main transition-transform duration-200 group-data-[nav-open]/header:translate-y-2 group-data-[nav-open]/header:rotate-45"
+				></span>
+				<span
+					class="block h-[3px] w-[18px] rounded-full bg-accent-main transition-opacity duration-200 group-data-[nav-open]/header:opacity-0"
+				></span>
+				<span
+					class="block h-[3px] w-3 rounded-full bg-accent-main transition-[transform,width] duration-200 group-data-[nav-open]/header:w-6 group-data-[nav-open]/header:-translate-y-2 group-data-[nav-open]/header:-rotate-45"
+				></span>
+			</span>
+		</button>
+	</div>
+</header>
+
+<script>
+	import '../scripts/header-nav.ts';
+</script>

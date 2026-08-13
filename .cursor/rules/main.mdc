@@ -20,6 +20,7 @@ alwaysApply: true
   * **Background Colors:**
     * `#e6f0ff` (Light Soft Tint) → `surface-tint`
     * `#ffffff` (Pure White) → `surface-white`
+    * `#f3f3f3` (Light Grey) → `surface-grey`
   * **Text Colors:**
     * `#333333` (Dark Body Text) → `body-dark`
     * `#ffffff` (White Text) → `body-light`
@@ -30,7 +31,7 @@ alwaysApply: true
 
 ## Assets
 
-* All image assets are in public directory: https://pub-0772fc56ae8a4a2ab98b0f900fdd1ae0.r2.dev
+* All image assets are hosted at https://pub-0772fc56ae8a4a2ab98b0f900fdd1ae0.r2.dev. Import `asset()` from `src/lib/assets.ts` to build image URLs. Do not hardcode the CDN base in components.
 
 ## Responsive & Mobile-First Design
 

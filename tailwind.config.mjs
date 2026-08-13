@@ -12,6 +12,7 @@ export default {
         surface: {
           tint: '#e6f0ff',
           white: '#ffffff',
+          grey: '#f3f3f3',
         },
         body: {
           dark: '#333333',
@@ -24,6 +25,9 @@ export default {
       fontFamily: {
         sans: ['"PT Sans"', 'sans-serif'],
         heading: ['"PT Sans"', 'sans-serif'],
+      },
+      maxWidth: {
+        content: '1440px',
       },
     },
   },
