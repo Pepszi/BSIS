@@ -1,0 +1,30 @@
+@import "tailwindcss";
+@config "../../tailwind.config.mjs";
+
+@theme {
+  --color-accent-main: #002e76;
+  --color-accent-dark: #004cc2;
+  --color-surface-tint: #e6f0ff;
+  --color-surface-white: #ffffff;
+  --color-body-dark: #333333;
+  --color-body-light: #ffffff;
+  --color-border-subtle: #dddddd;
+  --font-sans: "PT Sans", sans-serif;
+  --font-heading: "PT Sans", sans-serif;
+}
+
+@font-face {
+  font-family: "PT Sans";
+  src: url("/fonts/PTSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PT Sans";
+  src: url("/fonts/PTSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
