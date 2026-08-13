@@ -4,13 +4,14 @@ interface Props {
 	class?: string;
 	id?: string;
 	variant?: 'primary' | 'secondary';
+	type?: 'button' | 'submit';
 	'aria-haspopup'?: string;
 	'aria-expanded'?: string;
 	'aria-controls'?: string;
 	'data-references-modal-open'?: string | boolean;
 }
 
-const { href, class: className, variant = 'primary', ...rest } = Astro.props;
+const { href, class: className, variant = 'primary', type = 'button', ...rest } = Astro.props;
 
 const variantClass = {
 	primary:
@@ -32,7 +33,7 @@ const buttonClass = [
 			<slot />
 		</a>
 	) : (
-		<button type="button" class:list={buttonClass} {...rest}>
+		<button type={type} class:list={buttonClass} {...rest}>
 			<slot />
 		</button>
 	)

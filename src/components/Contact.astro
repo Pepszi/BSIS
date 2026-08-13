@@ -1,0 +1,130 @@
+---
+import Button from './Button.astro';
+
+const fields = [
+	{ id: 'contact-name', name: 'Név', label: 'Név*', placeholder: 'Név', type: 'text', autocomplete: 'name' },
+	{ id: 'contact-email', name: 'Email', label: 'Email*', placeholder: 'Email', type: 'email', autocomplete: 'email' },
+	{ id: 'contact-subject', name: 'Tárgy', label: 'Tárgy*', placeholder: 'Tárgy', type: 'text', autocomplete: 'off' },
+] as const;
+---
+
+<section
+	id="kapcsolat"
+	class="scroll-mt-24 bg-gradient-to-b from-accent-dark to-surface-white"
+	aria-labelledby="kapcsolat-heading"
+>
+	<div class="mx-auto max-w-content px-5 py-16 md:px-8 lg:px-16 lg:py-24">
+		<h2
+			id="kapcsolat-heading"
+			class="mb-8 font-heading text-4xl font-bold text-body-light lg:mb-12 lg:text-5xl"
+		>
+			Kapcsolat
+		</h2>
+
+		<div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
+			<div class="w-full rounded-lg bg-surface-white p-6 shadow-lg lg:flex-1">
+				<form method="POST" data-contact-form>
+					<input type="hidden" name="_subject" value="Kapcsolatfelvétel — BSIS" />
+					<input type="hidden" name="_template" value="table" />
+					<input type="hidden" name="_captcha" value="false" />
+					<input
+						type="text"
+						name="_honey"
+						tabindex="-1"
+						autocomplete="off"
+						aria-hidden="true"
+						class="hidden"
+					/>
+
+					<div class="flex flex-col gap-6">
+						{
+							fields.map((field) => (
+								<div>
+									<label
+										for={field.id}
+										class="mb-2 block text-base font-bold text-body-dark"
+									>
+										{field.label}
+									</label>
+									<input
+										id={field.id}
+										type={field.type}
+										name={field.name}
+										placeholder={field.placeholder}
+										autocomplete={field.autocomplete}
+										required
+										class="w-full rounded-lg border border-border-subtle bg-surface-white px-4 py-3 text-base text-body-dark placeholder:text-body-dark/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-main"
+									/>
+								</div>
+							))
+						}
+
+						<div>
+							<label
+								for="contact-message"
+								class="mb-2 block text-base font-bold text-body-dark"
+							>
+								Üzenet*
+							</label>
+							<textarea
+								id="contact-message"
+								name="Üzenet"
+								placeholder="Üzenet"
+								rows="6"
+								required
+								class="w-full resize-y rounded-lg border border-border-subtle bg-surface-white px-4 py-3 text-base text-body-dark placeholder:text-body-dark/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-main"
+							></textarea>
+						</div>
+
+						<p
+							data-contact-error
+							class="hidden text-base font-normal text-body-dark"
+							role="alert"
+						></p>
+
+						<Button type="submit" class="w-full">Küldés</Button>
+					</div>
+				</form>
+
+				<div
+					data-contact-success
+					hidden
+					tabindex="-1"
+					role="status"
+					class="flex min-h-[28rem] items-center justify-center rounded-lg bg-surface-grey px-6 py-16"
+				>
+					<p class="text-center text-base font-normal leading-relaxed text-body-dark">
+						Köszönjük a megkeresést! Hamarosan jelentkezünk.
+					</p>
+				</div>
+			</div>
+
+			<div
+				class="w-full rounded-lg bg-accent-dark p-6 text-body-light md:p-8 lg:flex-1 lg:p-10"
+			>
+				<p class="text-xl font-bold leading-snug lg:text-[2rem]">
+					BSIS Informatikai Szolgáltató és Tanácsadó Zrt.
+				</p>
+				<p class="mt-4 text-base font-normal leading-relaxed lg:text-2xl">
+					<strong class="font-bold">Angol név:</strong> Business System Integration
+					Solutions Service Provider and Consulting Ltd.
+				</p>
+				<div class="mt-8 flex flex-col gap-2 text-base font-normal leading-relaxed">
+					<p>
+						<strong class="font-bold">Székhely:</strong> 1117 Budapest, Gábor Dénes u 4.
+					</p>
+					<p>
+						<strong class="font-bold">Tel.:</strong> 06 70 389 6712
+					</p>
+					<p>
+						<strong class="font-bold">Email:</strong> office@bsis.hu
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	import '../scripts/contact-form.ts';
+</script>
