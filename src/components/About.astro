@@ -1,0 +1,112 @@
+---
+import { asset } from '../lib/assets';
+import Button from './Button.astro';
+
+interface Service {
+	title: string;
+	description: string;
+}
+
+const firstRowServices: Service[] = [
+	{
+		title: 'Alkalmazások üzemeltetése',
+		description:
+			'Az ügyfeleink által használt informatikai alkalmazások folyamatos karbantartása, fejlesztése, illetve a felhasználók támogatása.',
+	},
+	{
+		title: 'Tanácsadás / projekt management',
+		description:
+			'Az ügyfeleink alkalmazás fejlesztési és üzemeltetési folyamatainak átvilágítása, a folyamatok és a működési stratégia kialakítása és üzemeltetése.',
+	},
+];
+
+const secondRowServices: Service[] = [
+	{
+		title: 'Alkalmazásfejlesztés',
+		description:
+			'Az ügyfeleink által igényelt informatikai alkalmazás tervezése, beállítása, fejlesztése és teljes körű bevezetése.',
+	},
+	{
+		title: 'Erőforrás igények kielégítése',
+		description:
+			'Az ügyfeleink, vagy a partnereink alkalmazás fejlesztése és informatikai üzemeltetése során előforduló egyszeri, rövidebb idejű erőforrás igények kielégítése.',
+	},
+];
+---
+
+<section
+	id="rolunk"
+	class="scroll-mt-24 bg-surface-tint"
+	aria-labelledby="rolunk-heading"
+>
+	<div class="mx-auto max-w-content px-5 py-16 md:px-8 lg:px-16 lg:py-24">
+		<div class="mb-16 max-w-[952px] lg:mb-24">
+			<h2
+				id="rolunk-heading"
+				class="mb-8 font-heading text-4xl font-bold text-body-dark lg:text-5xl"
+			>
+				Rólunk
+			</h2>
+			<p class="mb-4 text-base font-normal leading-8 text-body-dark">
+				Célunk, hogy pontos igényfelmérés és tervezés után, kiemelkedő minőségű, integrált
+				informatikai szolgáltatásokkal és tartalmi megoldásokkal járuljunk hozzá az ügyfeleink
+				üzleti céljainak megvalósításához.
+			</p>
+			<p class="text-base font-normal leading-8 text-body-dark">
+				Szolgáltatásaink célja a felhasználó üzleti folyamatait támogató informatikai rendszerek
+				tervezése, megvalósítása és támogatása.
+			</p>
+		</div>
+
+		<div class="flex flex-col gap-16 lg:gap-24">
+			<div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-[5%]">
+				<img
+					src={asset('home/scott-graham-OQMZwNd3ThU-unsplash.jpg')}
+					alt="Dokumentum aláírása"
+					width="640"
+					height="427"
+					loading="lazy"
+					class="aspect-[3/2] w-full rounded-lg object-cover lg:w-1/2"
+				/>
+				<div class="flex w-full flex-col gap-8 lg:w-1/2">
+					{
+						firstRowServices.map((service) => (
+							<div>
+								<h3 class="mb-4 text-2xl font-bold text-body-dark lg:text-[2rem]">{service.title}</h3>
+								<p class="text-base font-normal leading-relaxed text-body-dark">
+									{service.description}
+								</p>
+							</div>
+						))
+					}
+				</div>
+			</div>
+
+			<div class="flex flex-col-reverse gap-8 lg:flex-row lg:items-start lg:gap-[5%]">
+				<div class="flex w-full flex-col gap-8 lg:w-1/2">
+					{
+						secondRowServices.map((service) => (
+							<div>
+								<h3 class="mb-4 text-2xl font-bold text-body-dark lg:text-[2rem]">{service.title}</h3>
+								<p class="text-base font-normal leading-relaxed text-body-dark">
+									{service.description}
+								</p>
+							</div>
+						))
+					}
+					<Button href="/rolunk" variant="secondary" class="self-start">
+						Bővebben rólunk
+					</Button>
+				</div>
+				<img
+					src={asset('home/arnold-francisca-FBNxmwEVpAc-unsplash.jpg')}
+					alt="Laptopon megjelenő programkód"
+					width="640"
+					height="427"
+					loading="lazy"
+					class="aspect-[3/2] w-full rounded-lg object-cover lg:w-1/2"
+				/>
+			</div>
+		</div>
+	</div>
+</section>

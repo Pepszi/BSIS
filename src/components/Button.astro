@@ -3,16 +3,25 @@ interface Props {
 	href?: string;
 	class?: string;
 	id?: string;
+	variant?: 'primary' | 'secondary';
 	'aria-haspopup'?: string;
 	'aria-expanded'?: string;
 	'aria-controls'?: string;
 	'data-references-modal-open'?: string | boolean;
 }
 
-const { href, class: className, ...rest } = Astro.props;
+const { href, class: className, variant = 'primary', ...rest } = Astro.props;
+
+const variantClass = {
+	primary:
+		'bg-accent-main text-body-light hover:bg-accent-dark',
+	secondary:
+		'border border-accent-main bg-transparent text-accent-main hover:border-accent-dark hover:bg-accent-dark hover:text-body-light',
+}[variant];
 
 const buttonClass = [
-	'inline-block rounded-full bg-accent-main px-6 py-4 text-center text-base font-medium leading-none text-body-light transition-colors hover:bg-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-main',
+	'inline-block rounded-full px-6 py-4 text-center text-base font-medium leading-none transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-main',
+	variantClass,
 	className,
 ];
 ---
