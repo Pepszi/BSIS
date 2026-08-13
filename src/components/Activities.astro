@@ -1,0 +1,118 @@
+---
+import sapIcon from '../icons/activities/sap.svg?raw';
+import appDevIcon from '../icons/activities/app-dev.svg?raw';
+import processIcon from '../icons/activities/process.svg?raw';
+import innovationIcon from '../icons/activities/innovation.svg?raw';
+import systemsIcon from '../icons/activities/systems.svg?raw';
+import qaIcon from '../icons/activities/qa.svg?raw';
+import rndIcon from '../icons/activities/rnd.svg?raw';
+import gisIcon from '../icons/activities/gis.svg?raw';
+import mobileIcon from '../icons/activities/mobile.svg?raw';
+
+interface Activity {
+	title: string;
+	icon: string;
+	description: string[];
+}
+
+const activities: Activity[] = [
+	{
+		title: 'SAP támogatása',
+		icon: sapIcon,
+		description: [
+			'Az SAP rendszerben leképzett üzleti folyamatok karbantartását, változó üzleti igények generálta fejlesztési feladatok elvégzését, a rendszer optimalizálását, testre szabását és továbbfejlesztését vállaljuk.',
+		],
+	},
+	{
+		title: 'Alkalmazásfejlesztés',
+		icon: appDevIcon,
+		description: [
+			'Az alkalmazásfejlesztési szolgáltatásunk elsősorban web alapú vállalati információs rendszerek kialakítására fókuszál. Az egyedi igényeket és követelményeket kiszolgáló alkalmazás rendszerek az információmenedzsment területén hasznosulnak, főként a műszaki nyilvántartás és munkafolyamat támogatásban.',
+		],
+	},
+	{
+		title: 'Folyamat és ügyvitelszervezés',
+		icon: processIcon,
+		description: [
+			'A folyamatszervezési tevékenység egy cég üzleti folyamatainak egy adott időpontban történő felmérését, a folyamatok rögzítését, a folyamatok elemzését és az optimális működés érdekében a folyamatok menetének megváltoztatására tett javaslatot foglalja magában.',
+		],
+	},
+	{
+		title: 'Innováció menedzsment projekt',
+		icon: innovationIcon,
+		description: [
+			'Innovációs feladatok ellátása induló vállalkozásoknál. Az innovációs folyamatok menedzselésével a teljes inkubációs folyamatot támogatjuk.',
+		],
+	},
+	{
+		title: 'Rendszerszervezés',
+		icon: systemsIcon,
+		description: [
+			'Informatikai rendszerek bevezetése, vagy átalakítása előtti, illetve vállalati átalakítások előtti szervezési feladatok elvégzése, meglévő informatikai rendszerek tanúsítása, informatikai rendszerek dokumentálása, bevezetett informatikai rendszerek értékvélelmezése.',
+		],
+	},
+	{
+		title: 'Informatikai projektek minőségbiztosítása',
+		icon: qaIcon,
+		description: [
+			'Az informatikai rendszerek bevezetésekor fontos, hogy legyen egy „interfész” a bevezetést végző Vállalkozó és a rendszert bevezettető „Megrendelő” között, hiszen a Megrendelőtől nem várható el, hogy értsen a rendszer bevezetésének folyamatához és a projekt termék hibátlan működésének ellenőrzéséhez.',
+		],
+	},
+	{
+		title: 'Kutatás-fejlesztés',
+		icon: rndIcon,
+		description: [
+			'A kutatás-fejlesztési feladatainkat jellemzően térinformatikai és mobil fejlesztési területeken végezzük, ahol olyan innovatív megoldásokat tervezünk és implementálunk, amik az adott szakterületen hiányoznak. Munkatársaink mind a kutatási, tervezési, implementációs és prototípus építési feladatba bekapcsolódnak.',
+		],
+	},
+	{
+		title: 'Térinformatika',
+		icon: gisIcon,
+		description: [
+			'A térinformatikai rendszereket jellemzően a helymeghatározáshoz és a térképi adatok kezeléséhez kapcsolódó funkciókkal azonosítják.',
+		],
+	},
+	{
+		title: 'Mobilfejlesztés',
+		icon: mobileIcon,
+		description: [
+			'A mobil eszközök – okostelefonok és tabletek – egyre nagyobb szerepet töltenek be a mindennapi életünkben. A készülékek fejlődésével és az általuk nyújtott széleskörű eszköztár kihasználásával speciális üzleti igényeket kiszolgáló mobil alkalmazások készíthetők.',
+			'A BSIS Zrt. szakemberei a piacot jelenleg meghatározó mindhárom platformra – Google Android, Apple IOS és Windows Phone – terveznek, illetve fejlesztenek alkalmazásokat.',
+		],
+	},
+];
+---
+
+<section
+	id="tevekenysegek"
+	class="scroll-mt-24 bg-surface-white"
+	aria-labelledby="tevekenysegek-heading"
+>
+	<div class="mx-auto max-w-content px-5 py-16 md:px-8 lg:px-16 lg:py-24">
+		<h2
+			id="tevekenysegek-heading"
+			class="mb-16 font-heading text-4xl font-bold text-body-dark lg:mb-24 lg:text-5xl"
+		>
+			Tevékenységek
+		</h2>
+		<div class="grid grid-cols-1 gap-x-12 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-16 lg:gap-y-20">
+			{
+				activities.map((activity) => (
+					<div>
+						<div
+							class="mb-4 h-6 w-6 text-accent-main [&>svg]:h-full [&>svg]:w-full"
+							aria-hidden="true"
+							set:html={activity.icon}
+						/>
+						<h3 class="mb-2 text-2xl font-bold text-body-dark lg:text-[2rem]">{activity.title}</h3>
+						<div class="space-y-4">
+							{activity.description.map((paragraph) => (
+								<p class="text-base font-normal leading-relaxed text-body-dark">{paragraph}</p>
+							))}
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
