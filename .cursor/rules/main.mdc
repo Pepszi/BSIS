@@ -9,6 +9,22 @@ alwaysApply: true
 * **Framework:** Astro (`.astro` files)
 * **Styling:** Tailwind CSS
 
+## Design System & Styling Rules
+
+* **Strict Color Usage:** Apply theme colors using custom Tailwind classes or CSS variable references. Do **not** invent arbitrary hex codes or use default Tailwind colors. Use the following colors:
+  * **Accent Colors:** 
+    * `#002e76` (Main Accent / Interactive elements) → `bg-accent-main`, `text-accent-main`
+    * `#004cc2` (Dark Accent / Hover states & dark buttons) → `bg-accent-dark`, `text-accent-dark`
+  * **Background Colors:**
+    * `#e6f0ff` (Light Soft Tint) → `bg-surface-tint`
+    * `#ffffff` (Pure White) → `bg-surface-white` or `bg-white`
+  * **Text Colors:**
+    * `#333333` (Dark Body Text) → `text-body-dark` or `text-neutral-800`
+    * `#ffffff` (White Text) → `text-body-light` or `text-white`
+  * **Border Colors:**
+    * `#dddddd` (Light Neutral Border) → `border-subtle` or `border-[#ddd]`
+* **Typography & Layout Spacing:** Use the fonts in the "fonts" folder
+
 ## Responsive & Mobile-First Design (Default Standard)
 
 * **Mobile-First Approach:** Write styles for small screens by default, then layer on layout and style changes using Tailwind's breakpoint prefixes (`sm:`, `md:`, `lg:`, `xl:`).
