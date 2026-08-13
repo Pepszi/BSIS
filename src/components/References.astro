@@ -1,0 +1,181 @@
+---
+import { asset } from '../lib/assets';
+import { references } from '../data/references';
+import Button from './Button.astro';
+
+interface Logo {
+	src: string;
+	alt: string;
+}
+
+const logoRows: Logo[][] = [
+	[
+		{ src: asset('home/logos/Telekom-logo.png'), alt: 'Magyar Telekom' },
+		{ src: asset('home/logos/Voestalpine-logo.png'), alt: 'voestalpine' },
+		{ src: asset('home/logos/ITGen-logo.png'), alt: 'itgen' },
+		{ src: asset('home/logos/T-Systems-logo.png'), alt: 'T-Systems' },
+	],
+	[
+		{ src: asset('home/logos/Bacsviz-logo.png'), alt: 'BÁCSVÍZ' },
+		{ src: asset('home/logos/Nyiregyhazi-logo.png'), alt: 'Nyíregyházi Egyetem' },
+		{ src: asset('home/logos/Bonafarm-logo.png'), alt: 'Bonafarm' },
+		{ src: asset('home/logos/Noispot-logo.png'), alt: 'Noispot' },
+		{ src: asset('home/logos/Delta-logo.png'), alt: 'Delta' },
+	],
+	[
+		{ src: asset('home/logos/Hegykozsegek-logo.png'), alt: 'Hegyközségek Nemzeti Tanácsa' },
+		{ src: asset('home/logos/Bonitas-logo.png'), alt: 'Bonitás' },
+		{ src: asset('home/logos/Bablena-logo.png'), alt: 'Bablena' },
+		{ src: asset('home/logos/Kreta-logo.png'), alt: 'Kréta' },
+		{ src: asset('home/logos/TRV-logo.png'), alt: 'TRV' },
+	],
+];
+
+const logos = logoRows.flat();
+---
+
+<section
+	id="referenciak"
+	class="scroll-mt-24 bg-surface-white"
+	aria-labelledby="referenciak-heading"
+>
+	<div class="mx-auto max-w-content px-5 py-16 md:px-8 lg:px-16 lg:py-24">
+		<h2
+			id="referenciak-heading"
+			class="mb-12 font-heading text-4xl font-bold text-body-dark lg:mb-16 lg:text-5xl"
+		>
+			Referenciák
+		</h2>
+
+		<div class="flex flex-wrap items-center gap-x-8 gap-y-10 lg:hidden">
+			{
+				logos.map((logo) => (
+					<img
+						src={logo.src}
+						alt={logo.alt}
+						height="48"
+						class="h-12 w-auto shrink-0 object-contain"
+					/>
+				))
+			}
+		</div>
+
+		<div class="hidden flex-col gap-12 lg:flex lg:gap-16">
+			{
+				logoRows.map((row) => (
+					<div class="flex items-center justify-between gap-8">
+						{row.map((logo) => (
+							<img
+								src={logo.src}
+								alt={logo.alt}
+								height="48"
+								class="h-12 w-auto shrink-0 object-contain"
+							/>
+						))}
+					</div>
+				))
+			}
+		</div>
+
+		<Button
+			class="mt-12 lg:mt-16"
+			id="references-modal-open"
+			aria-haspopup="dialog"
+			aria-expanded="false"
+			aria-controls="references-modal"
+			data-references-modal-open
+		>
+			Részletes referenciák
+		</Button>
+	</div>
+</section>
+
+<dialog
+	id="references-modal"
+	data-references-modal
+	aria-modal="true"
+	aria-labelledby="references-modal-title"
+	class="m-0 h-full max-h-none w-full max-w-none border-0 bg-transparent p-6 backdrop:bg-black/50 open:flex open:items-center open:justify-center sm:p-8"
+>
+	<div
+		class="max-h-[80svh] w-full max-w-[60rem] overflow-hidden rounded-lg bg-surface-white"
+	>
+		<div
+			class="references-modal relative grid max-h-[80svh] overflow-auto overscroll-contain pb-8 pl-4 sm:pb-12 sm:pl-8 lg:pl-12"
+		>
+		<button
+			type="button"
+			data-references-modal-close
+			class="sticky top-0 right-0 z-10 cursor-pointer justify-self-end rounded-tr-lg bg-surface-grey p-4 text-body-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-main sm:p-6"
+			aria-label="Referenciák bezárása"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4">
+				<path
+					fill="currentColor"
+					d="M14.5,12l9-9c0.7-0.7,0.7-1.8,0-2.5c-0.7-0.7-1.8-0.7-2.5,0l-9,9l-9-9c-0.7-0.7-1.8-0.7-2.5,0 c-0.7,0.7-0.7,1.8,0,2.5l9,9l-9,9c-0.7,0.7-0.7,1.8,0,2.5c0.7,0.7,1.8,0.7,2.5,0l9-9l9,9c0.7,0.7,1.8,0.7,2.5,0 c0.7-0.7,0.7-1.8,0-2.5L14.5,12z"
+				></path>
+			</svg>
+		</button>
+
+		<h2
+			id="references-modal-title"
+			class="mb-6 font-heading text-[2rem] font-bold leading-tight text-body-dark"
+		>
+			Referenciák
+		</h2>
+
+		<table class="mb-0 mr-4 w-[calc(100%-1rem)] border-collapse sm:mr-12 sm:w-[calc(100%-3rem)] lg:mr-16 lg:w-[calc(100%-4rem)]">
+			<caption class="sr-only">Részletes referenciák ügyfelenként</caption>
+			<tbody>
+				{
+					references.map((reference) => (
+						<tr class="border-b border-border-subtle max-md:block">
+							<th
+								scope="row"
+								class="align-top px-0 py-2 pr-2 text-left text-base font-bold leading-6 text-body-dark max-md:block md:w-[32%] md:px-2 md:py-2 md:pr-4"
+							>
+								{reference.company}
+							</th>
+							<td class="align-top px-0 py-2 text-base font-normal leading-6 text-body-dark max-md:block md:px-2 md:py-2 md:pr-4">
+								{reference.description}
+							</td>
+						</tr>
+					))
+				}
+			</tbody>
+		</table>
+		</div>
+	</div>
+</dialog>
+
+<style>
+	dialog[data-references-modal][open] {
+		display: flex;
+	}
+
+	.references-modal {
+		scrollbar-width: thin;
+		scrollbar-color: var(--color-accent-main) var(--color-surface-white);
+	}
+
+	.references-modal::-webkit-scrollbar {
+		width: 0.5rem;
+	}
+
+	.references-modal::-webkit-scrollbar-thumb {
+		background-color: var(--color-accent-main);
+	}
+
+	.references-modal::-webkit-scrollbar-thumb:hover {
+		background-color: var(--color-accent-dark);
+	}
+
+	.references-modal::-webkit-scrollbar-track {
+		background-color: var(--color-surface-white);
+		margin: 0.5rem 0;
+	}
+</style>
+
+<script>
+	import '../scripts/references-modal.ts';
+</script>

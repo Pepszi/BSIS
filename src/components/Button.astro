@@ -1,18 +1,30 @@
 ---
 interface Props {
-	href: string;
+	href?: string;
 	class?: string;
+	id?: string;
+	'aria-haspopup'?: string;
+	'aria-expanded'?: string;
+	'aria-controls'?: string;
+	'data-references-modal-open'?: string | boolean;
 }
 
-const { href, class: className } = Astro.props;
+const { href, class: className, ...rest } = Astro.props;
+
+const buttonClass = [
+	'inline-block rounded-full bg-accent-main px-6 py-4 text-center text-base font-medium leading-none text-body-light transition-colors hover:bg-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-main',
+	className,
+];
 ---
 
-<a
-	href={href}
-	class:list={[
-		'inline-block rounded-full bg-accent-main px-6 py-4 text-center text-base font-medium leading-none text-body-light transition-colors hover:bg-accent-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-main',
-		className,
-	]}
->
-	<slot />
-</a>
+{
+	href ? (
+		<a href={href} class:list={buttonClass} {...rest}>
+			<slot />
+		</a>
+	) : (
+		<button type="button" class:list={buttonClass} {...rest}>
+			<slot />
+		</button>
+	)
+}
