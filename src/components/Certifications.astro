@@ -1,0 +1,56 @@
+---
+import { asset } from '../lib/assets';
+
+interface Certificate {
+	href: string;
+	src: string;
+	alt: string;
+}
+
+const certificates: Certificate[] = [
+	{
+		href: asset('home/pdfs/MSZT-BSIS-IBIR.pdf'),
+		src: asset('home/mszt-cert.png'),
+		alt: 'MSZT tanúsítvány',
+	},
+	{
+		href: asset('home/pdfs/IQNET-BSIS-MIR.pdf'),
+		src: asset('home/iqnet.png'),
+		alt: 'IQNET tanúsítvány',
+	},
+];
+---
+
+<section class="bg-surface-white" aria-label="Tanúsítványok">
+	<div
+		class="mx-auto flex max-w-content flex-col items-center px-5 py-10 md:px-8 lg:px-16"
+	>
+		<div class="flex items-center justify-center gap-8">
+			{
+				certificates.map((certificate) => (
+					<a
+						href={certificate.href}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="shrink-0 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-main"
+					>
+						<img
+							src={certificate.src}
+							alt={certificate.alt}
+							width="96"
+							height="96"
+							class="h-24 w-24 object-contain"
+						/>
+					</a>
+				))
+			}
+		</div>
+		<p class="mt-6 text-center text-base font-normal leading-relaxed text-body-dark">
+			Nyilvántartási szám:
+			<br />
+			ISO 9001: 503/1413-1331
+			<br />
+			ISO/IEC 27001: IBIR/057-56
+		</p>
+	</div>
+</section>
