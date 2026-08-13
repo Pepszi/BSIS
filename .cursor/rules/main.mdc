@@ -7,58 +7,50 @@ alwaysApply: true
 ## Core Tech Stack
 
 * **Framework:** Astro (`.astro` files)
+* **Language:** TypeScript (Use standard TS types/interfaces in frontmatter)
 * **Styling:** Tailwind CSS
 
 ## Design System & Styling Rules
 
-* **Strict Color Usage:** Apply theme colors using custom Tailwind classes or CSS variable references. Do **not** invent arbitrary hex codes or use default Tailwind colors. Use the following colors:
+* **Tailwind Configuration:** Ensure all custom colors and fonts below are properly extended in `tailwind.config.mjs` under the `theme.extend` object.
+* **Strict Color Usage:** Apply theme colors using your custom Tailwind classes. Do **not** invent arbitrary hex codes or use default Tailwind colors.
   * **Accent Colors:** 
-    * `#002e76` (Main Accent / Interactive elements) → `bg-accent-main`, `text-accent-main`
-    * `#004cc2` (Dark Accent / Hover states & dark buttons) → `bg-accent-dark`, `text-accent-dark`
+    * `#002e76` (Main Accent / Interactive elements) → `accent-main`
+    * `#004cc2` (Dark Accent / Hover states) → `accent-dark`
   * **Background Colors:**
-    * `#e6f0ff` (Light Soft Tint) → `bg-surface-tint`
-    * `#ffffff` (Pure White) → `bg-surface-white` or `bg-white`
+    * `#e6f0ff` (Light Soft Tint) → `surface-tint`
+    * `#ffffff` (Pure White) → `surface-white`
   * **Text Colors:**
-    * `#333333` (Dark Body Text) → `text-body-dark` or `text-neutral-800`
-    * `#ffffff` (White Text) → `text-body-light` or `text-white`
+    * `#333333` (Dark Body Text) → `body-dark`
+    * `#ffffff` (White Text) → `body-light`
   * **Border Colors:**
-    * `#dddddd` (Light Neutral Border) → `border-subtle` or `border-[#ddd]`
-* **Typography & Layout Spacing:** Use the fonts in the "fonts" folder
+    * `#dddddd` (Light Neutral Border) → `border-subtle`
+* **Typography:** Reference the custom fonts located in the `/public/fonts/` (or `/src/fonts/`) folder. Define these in the Tailwind config as primary font families (e.g., `font-sans`, `font-heading`).
 
-## Responsive & Mobile-First Design (Default Standard)
+## Assets
+
+* All image assets are in public directory: https://pub-0772fc56ae8a4a2ab98b0f900fdd1ae0.r2.dev
+
+## Responsive & Mobile-First Design
 
 * **Mobile-First Approach:** Write styles for small screens by default, then layer on layout and style changes using Tailwind's breakpoint prefixes (`sm:`, `md:`, `lg:`, `xl:`).
 * **Fluid Layouts:** Every component and page layout **must be responsive out of the box**. Do not build desktop-only layouts that overflow on smaller viewports.
 
 ## Component Architecture
 
-* **Use Astro Components:** Break down UI into clean, reusable `.astro` components for anything that makes structural or logical sense.
-* **Islands Architecture:** Keep server-first rendering by default. Only use interactive client directives (`client:load`, `client:visible`, etc.) when necessary.
+* **File Structure:** Place all reusable `.astro` components in `src/components/`, page layouts in `src/layouts/`, and pages in `src/pages/`.
+* **Islands Architecture:** Keep server-first rendering by default. Only use interactive client directives (`client:load`, `client:idle`, `client:visible`) when strictly necessary for JavaScript interactivity.
 
 ## JavaScript Organization & Formatting
 
-* **Modular Files:** Do **not** write monolithic script tags or massive single JS files. Split logic into small, modular JavaScript files organized logically in `src/scripts/` or similar.
-* **Header Comment Required:** Every JS file **must** start with a brief 1–2 line comment explaining its core purpose.
+* **Modular Files:** Do **not** write monolithic `<script>` tags or massive single JS/TS files. Split logic into small, modular files organized logically in `src/scripts/` or alongside the component.
+* **Header Comment Required:** Every JS/TS file **must** start with a brief 1–2 line comment explaining its core purpose.
 
-## Development
+## Documentation Context
 
-When starting the dev server, use background mode:
+Consult these official Astro guides before generating complex logic:
 
-```
-astro dev --background
-```
-
-Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
-
-## Documentation
-
-Full documentation: https://docs.astro.build
-
-Consult these guides before working on related tasks:
-
-- [Adding pages, dynamic routes, or middleware](https://docs.astro.build/en/guides/routing/)
-- [Working with Astro components](https://docs.astro.build/en/basics/astro-components/)
-- [Using React, Vue, Svelte, or other framework components](https://docs.astro.build/en/guides/framework-components/)
-- [Adding or managing content](https://docs.astro.build/en/guides/content-collections/)
-- [Adding styles or using Tailwind](https://docs.astro.build/en/guides/styling/)
-- [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/)
+- Routing: https://docs.astro.build/en/guides/routing/
+- Astro Components: https://docs.astro.build/en/basics/astro-components/
+- Content Collections: https://docs.astro.build/en/guides/content-collections/
+- Styling & Tailwind: https://docs.astro.build/en/guides/styling/
