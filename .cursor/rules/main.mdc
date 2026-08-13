@@ -26,6 +26,7 @@ alwaysApply: true
   * **Border Colors:**
     * `#dddddd` (Light Neutral Border) → `border-subtle`
 * **Typography:** Reference the custom fonts located in the `/public/fonts/` (or `/src/fonts/`) folder. Define these in the Tailwind config as primary font families (e.g., `font-sans`, `font-heading`).
+* **Container:** The max width of the content should be 1440px.
 
 ## Assets
 
