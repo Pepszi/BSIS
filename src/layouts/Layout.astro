@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import GrantBadge from '../components/GrantBadge.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -25,5 +26,6 @@ const { title = 'BSIS', description } = Astro.props;
 		<Header />
 		<slot />
 		<Footer />
+		<GrantBadge />
 	</body>
 </html>

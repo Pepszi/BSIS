@@ -1,0 +1,21 @@
+---
+import { asset } from '../lib/assets';
+---
+
+<a
+	href="/palyazati-tamogatas"
+	data-grant-badge
+	aria-label="Pályázati támogatás"
+	class="fixed right-4 bottom-4 z-40 transition-opacity duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-main"
+>
+	<img
+		src={asset('global/kedvezmenyezetti_infoblokk_fekvo_magyar_rgb.webp')}
+		alt="Pályázati támogatás"
+		height="64"
+		class="h-16 w-auto"
+	/>
+</a>
+
+<script>
+	import '../scripts/grant-badge.ts';
+</script>
