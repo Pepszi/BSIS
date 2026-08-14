@@ -14,7 +14,7 @@ const { eyebrow, heading, subtitle, ctaHref, ctaLabel } = Astro.props;
 
 <section class="hero-gradient" aria-labelledby="hero-heading">
 	<div
-		class="mx-auto flex min-h-[28rem] max-w-content flex-col items-start justify-center px-5 py-16 text-left md:min-h-[480px] md:items-center md:px-8 md:text-center lg:px-16"
+		class="mx-auto flex max-w-content flex-col items-start px-5 py-16 text-left md:items-center md:px-8 md:py-24 md:text-center lg:px-16"
 	>
 		{
 			eyebrow && (
@@ -23,13 +23,13 @@ const { eyebrow, heading, subtitle, ctaHref, ctaLabel } = Astro.props;
 		}
 		<h1
 			id="hero-heading"
-			class="font-heading text-5xl font-bold leading-tight text-body-light"
+			class="font-heading text-[32px] font-bold leading-tight text-body-light md:text-5xl"
 		>
 			{heading}
 		</h1>
 		{
 			subtitle && (
-				<p class="mt-4 max-w-2xl text-2xl font-normal text-body-light">
+				<p class="mt-4 max-w-2xl text-xl font-normal text-body-light md:text-2xl">
 					{subtitle}
 				</p>
 			)
