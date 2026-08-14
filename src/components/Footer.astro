@@ -1,0 +1,54 @@
+---
+import { asset } from '../lib/assets';
+
+const currentYear = new Date().getFullYear();
+
+const linkClass =
+	'underline underline-offset-2 transition-colors hover:text-accent-main focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-main';
+---
+
+<footer class="bg-surface-white">
+	<div
+		class="mx-auto flex max-w-content items-center justify-center gap-8 px-5 py-10 md:px-8 lg:px-16 lg:py-12"
+	>
+		<img
+			src={asset('global/logo.png')}
+			alt="BSIS logó"
+			width="96"
+			height="96"
+			class="h-24 w-24 shrink-0 object-contain"
+		/>
+		<img
+			src={asset('global/minosites.jpg')}
+			alt="Minősített Informatikai Vállalkozás"
+			width="96"
+			height="96"
+			class="h-24 w-24 shrink-0 object-contain"
+		/>
+	</div>
+
+	<div class="bg-surface-tint">
+		<div
+			class="mx-auto flex max-w-content flex-col items-center gap-4 px-5 py-4 text-sm text-body-dark md:flex-row md:justify-between md:px-8 lg:px-16"
+		>
+			<p>Copyright: BSIS Zrt. | {currentYear}</p>
+
+			<div class="flex flex-col items-center gap-4 md:flex-row md:gap-8">
+				<a href="/minoseg-es-informaciobiztonsag" class={linkClass}>
+					Minőség- és információbiztonsági politika
+				</a>
+				<p>
+					Made by{' '}
+					<a
+						href="https://www.brandbar.hu/"
+						target="_blank"
+						rel="noopener noreferrer"
+						class={linkClass}
+					>
+						Brand Bar
+					</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</footer>
