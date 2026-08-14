@@ -6,30 +6,34 @@ import Button from './Button.astro';
 interface Logo {
 	src: string;
 	alt: string;
+	width: number;
+	height: number;
 }
 
 const logoRows: Logo[][] = [
 	[
-		{ src: asset('home/logos/Telekom-logo.png'), alt: 'Magyar Telekom' },
-		{ src: asset('home/logos/Voestalpine-logo.png'), alt: 'voestalpine' },
-		{ src: asset('home/logos/ITGen-logo.png'), alt: 'itgen' },
-		{ src: asset('home/logos/T-Systems-logo.png'), alt: 'T-Systems' },
+		{ src: asset('home/logos/Telekom-logo.png'), alt: 'Magyar Telekom', width: 200, height: 56 },
+		{ src: asset('home/logos/Voestalpine-logo.png'), alt: 'voestalpine', width: 261, height: 55 },
+		{ src: asset('home/logos/ITGen-logo.png'), alt: 'itgen', width: 233, height: 55 },
+		{ src: asset('home/logos/T-Systems-logo.png'), alt: 'T-Systems', width: 228, height: 45 },
 	],
 	[
-		{ src: asset('home/logos/Bacsviz-logo.png'), alt: 'BÁCSVÍZ' },
-		{ src: asset('home/logos/Nyiregyhazi-logo.png'), alt: 'Nyíregyházi Egyetem' },
-		{ src: asset('home/logos/Bonafarm-logo.png'), alt: 'Bonafarm' },
-		{ src: asset('home/logos/Noispot-logo.png'), alt: 'Noispot' },
-		{ src: asset('home/logos/Delta-logo.png'), alt: 'Delta' },
+		{ src: asset('home/logos/Bacsviz-logo.png'), alt: 'BÁCSVÍZ', width: 200, height: 45 },
+		{ src: asset('home/logos/Nyiregyhazi-logo.png'), alt: 'Nyíregyházi Egyetem', width: 210, height: 75 },
+		{ src: asset('home/logos/Bonafarm-logo.png'), alt: 'Bonafarm', width: 159, height: 63 },
+		{ src: asset('home/logos/Noispot-logo.png'), alt: 'Noispot', width: 159, height: 51 },
+		{ src: asset('home/logos/Delta-logo.png'), alt: 'Delta', width: 197, height: 55 },
 	],
 	[
-		{ src: asset('home/logos/Hegykozsegek-logo.png'), alt: 'Hegyközségek Nemzeti Tanácsa' },
-		{ src: asset('home/logos/Bonitas-logo.png'), alt: 'Bonitás' },
-		{ src: asset('home/logos/Bablena-logo.png'), alt: 'Bablena' },
-		{ src: asset('home/logos/Kreta-logo.png'), alt: 'Kréta' },
-		{ src: asset('home/logos/TRV-logo.png'), alt: 'TRV' },
+		{ src: asset('home/logos/Hegykozsegek-logo.png'), alt: 'Hegyközségek Nemzeti Tanácsa', width: 215, height: 83 },
+		{ src: asset('home/logos/Bonitas-logo.png'), alt: 'Bonitás', width: 205, height: 67 },
+		{ src: asset('home/logos/Bablena-logo.png'), alt: 'Bablena', width: 128, height: 83 },
+		{ src: asset('home/logos/Kreta-logo.png'), alt: 'Kréta', width: 122, height: 67 },
+		{ src: asset('home/logos/TRV-logo.png'), alt: 'TRV', width: 86, height: 83 },
 	],
 ];
+
+const logoClass = 'h-12 w-auto shrink-0 object-contain';
 
 const logos = logoRows.flat();
 ---
@@ -54,9 +58,12 @@ const logos = logoRows.flat();
 					<img
 						src={logo.src}
 						alt={logo.alt}
-						height="48"
+						width={logo.width}
+						height={logo.height}
 						loading="lazy"
-						class="h-12 w-auto shrink-0 object-contain"
+						decoding="async"
+						class={logoClass}
+						style={`aspect-ratio: ${logo.width} / ${logo.height}`}
 					/>
 				))
 			}
@@ -70,9 +77,12 @@ const logos = logoRows.flat();
 							<img
 								src={logo.src}
 								alt={logo.alt}
-								height="48"
+								width={logo.width}
+								height={logo.height}
 								loading="lazy"
-								class="h-12 w-auto shrink-0 object-contain"
+								decoding="async"
+								class={logoClass}
+								style={`aspect-ratio: ${logo.width} / ${logo.height}`}
 							/>
 						))}
 					</div>

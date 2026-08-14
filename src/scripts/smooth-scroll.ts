@@ -1,4 +1,4 @@
-// Smoothly scrolls same-page hash links with a short, eased duration.
+// Smoothly scrolls same-page hash links, tracking the live target so image loads cannot miss it.
 
 const DURATION_MIN_MS = 420;
 const DURATION_MAX_MS = 560;
@@ -14,8 +14,15 @@ function easeInOutCubic(t: number) {
 	return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
 
+function normalizePathname(pathname: string) {
+	return pathname.replace(/\/index\.html$/i, '/').replace(/\/+$/, '') || '/';
+}
+
 function getTargetY(element: HTMLElement) {
-	const margin = Number.parseFloat(getComputedStyle(element).scrollMarginTop) || 0;
+	const header = document.querySelector<HTMLElement>('[data-header]');
+	const headerHeight = header?.getBoundingClientRect().height ?? 0;
+	const styleMargin = Number.parseFloat(getComputedStyle(element).scrollMarginTop) || 0;
+	const margin = Math.max(styleMargin, headerHeight);
 	const top = element.getBoundingClientRect().top + window.scrollY;
 	const maxY = document.documentElement.scrollHeight - window.innerHeight;
 	return Math.max(0, Math.min(top - margin, maxY));
@@ -26,14 +33,15 @@ function stopAnimation() {
 	animationFrame = 0;
 }
 
-function scrollToY(targetY: number) {
+function scrollToElement(element: HTMLElement) {
 	stopAnimation();
 
 	const startY = window.scrollY;
-	const delta = targetY - startY;
+	const initialTarget = getTargetY(element);
+	const delta = initialTarget - startY;
 
 	if (Math.abs(delta) < 1 || prefersReducedMotion()) {
-		window.scrollTo({ top: targetY, behavior: 'instant' });
+		window.scrollTo({ top: getTargetY(element), behavior: 'instant' });
 		return;
 	}
 
@@ -46,8 +54,9 @@ function scrollToY(targetY: number) {
 	const step = (now: number) => {
 		if (startTime === null) startTime = now;
 		const progress = Math.min(1, (now - startTime) / duration);
+		const targetY = getTargetY(element);
 		window.scrollTo({
-			top: startY + delta * easeInOutCubic(progress),
+			top: startY + (targetY - startY) * easeInOutCubic(progress),
 			behavior: 'instant',
 		});
 
@@ -57,6 +66,7 @@ function scrollToY(targetY: number) {
 		}
 
 		animationFrame = 0;
+		window.scrollTo({ top: getTargetY(element), behavior: 'instant' });
 	};
 
 	animationFrame = requestAnimationFrame(step);
@@ -65,7 +75,8 @@ function scrollToY(targetY: number) {
 function samePageHashId(anchor: HTMLAnchorElement) {
 	const url = new URL(anchor.href);
 
-	if (url.origin !== window.location.origin || url.pathname !== window.location.pathname) {
+	if (url.origin !== window.location.origin) return null;
+	if (normalizePathname(url.pathname) !== normalizePathname(window.location.pathname)) {
 		return null;
 	}
 
@@ -80,14 +91,26 @@ function scrollToHash(id: string, updateHistory: boolean) {
 		history.pushState(null, '', `#${id}`);
 	}
 
-	scrollToY(getTargetY(target));
+	scrollToElement(target);
 	return true;
+}
+
+function alignToHash() {
+	const id = window.location.hash ? decodeURIComponent(window.location.hash.slice(1)) : '';
+	if (!id) return;
+
+	const target = document.getElementById(id);
+	if (!target) return;
+
+	window.scrollTo({ top: getTargetY(target), behavior: 'instant' });
 }
 
 function initSmoothScroll() {
 	document.addEventListener('click', (event) => {
 		const anchor = (event.target as HTMLElement | null)?.closest('a[href]');
-		if (!anchor || event.defaultPrevented || event.button !== 0) return;
+		if (!(anchor instanceof HTMLAnchorElement) || event.defaultPrevented || event.button !== 0) {
+			return;
+		}
 		if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 
 		const id = samePageHashId(anchor);
@@ -100,6 +123,7 @@ function initSmoothScroll() {
 
 	window.addEventListener('wheel', stopAnimation, { passive: true });
 	window.addEventListener('touchstart', stopAnimation, { passive: true });
+	window.addEventListener('load', alignToHash, { once: true });
 }
 
 initSmoothScroll();
