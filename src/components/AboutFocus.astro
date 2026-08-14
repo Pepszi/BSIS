@@ -1,0 +1,74 @@
+---
+import gisIcon from '../icons/activities/gis.svg?raw';
+import appDevIcon from '../icons/activities/app-dev.svg?raw';
+import webIcon from '../icons/activities/web.svg?raw';
+import rndIcon from '../icons/activities/rnd.svg?raw';
+
+interface FocusArea {
+	title: string;
+	icon: string;
+	description?: string;
+}
+
+const focusAreas: FocusArea[] = [
+	{
+		title: 'Térinformatikai alkalmazások fejlesztése',
+		icon: gisIcon,
+		description: 'valamint egyedi térképes web- és mobilmegoldások',
+	},
+	{
+		title: 'Mobilalkalmazások fejlesztése big data módszerekkel',
+		icon: appDevIcon,
+		description: '(szenzoradatok kezelése)',
+	},
+	{
+		title: 'Webalkalmazás-fejlesztés',
+		icon: webIcon,
+	},
+	{
+		title: 'Kutatás-fejlesztés-innováció',
+		icon: rndIcon,
+	},
+];
+---
+
+<section
+	id="rolunk"
+	class="scroll-mt-24 bg-surface-white"
+	aria-labelledby="rolunk-heading"
+>
+	<div class="mx-auto max-w-content px-5 py-16 md:px-8 lg:px-16 lg:py-24">
+		<h2
+			id="rolunk-heading"
+			class="mb-8 font-heading text-4xl font-bold text-body-dark lg:text-5xl"
+		>
+			Rólunk
+		</h2>
+		<p class="mb-16 max-w-[900px] text-sm font-normal leading-relaxed text-body-dark lg:mb-24">
+			A BSIS Zrt. mobilalkalmazás-fejlesztési gyökerekkel rendelkező hazai tulajdonú
+			szoftverfejlesztő vállalat. A céges kompetenciák építése közben az alábbi területekre
+			fektetik a legnagyobb hangsúlyt:
+		</p>
+		<div class="grid grid-cols-1 gap-x-12 gap-y-14 sm:grid-cols-2 xl:grid-cols-4 xl:gap-x-16 xl:gap-y-20">
+			{
+				focusAreas.map((area) => (
+					<div class="min-w-0">
+						<div
+							class="mb-4 h-6 w-6 text-accent-main [&>svg]:h-full [&>svg]:w-full"
+							aria-hidden="true"
+							set:html={area.icon}
+						/>
+						<h3 class="text-2xl font-bold leading-tight text-body-dark break-words xl:text-[2rem]">
+							{area.title}
+						</h3>
+						{area.description && (
+							<p class="mt-2 text-base font-normal leading-relaxed text-body-dark">
+								{area.description}
+							</p>
+						)}
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
