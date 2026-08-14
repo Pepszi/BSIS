@@ -12,10 +12,7 @@ interface Props {
 const { eyebrow, heading, subtitle, ctaHref, ctaLabel } = Astro.props;
 ---
 
-<section
-	class="bg-gradient-to-b from-accent-dark to-surface-white"
-	aria-labelledby="hero-heading"
->
+<section class="hero-gradient" aria-labelledby="hero-heading">
 	<div
 		class="mx-auto flex min-h-[28rem] max-w-content flex-col items-start justify-center px-5 py-16 text-left md:min-h-[480px] md:items-center md:px-8 md:text-center lg:px-16"
 	>
@@ -46,3 +43,17 @@ const { eyebrow, heading, subtitle, ctaHref, ctaLabel } = Astro.props;
 		}
 	</div>
 </section>
+
+<style>
+	.hero-gradient {
+		background-image: linear-gradient(
+			to bottom in oklab,
+			var(--color-accent-dark) 0%,
+			color-mix(in oklab, var(--color-accent-dark) 96%, var(--color-surface-white)) 28%,
+			color-mix(in oklab, var(--color-accent-dark) 88%, var(--color-surface-white)) 45%,
+			color-mix(in oklab, var(--color-accent-dark) 55%, var(--color-surface-white)) 68%,
+			var(--color-surface-tint) 85%,
+			var(--color-surface-white) 100%
+		);
+	}
+</style>
