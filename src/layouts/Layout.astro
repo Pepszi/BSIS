@@ -1,5 +1,6 @@
 ---
 import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -21,5 +22,6 @@ const { title = 'BSIS' } = Astro.props;
 	<body class="min-h-screen bg-surface-white font-sans text-body-dark">
 		<Header />
 		<slot />
+		<Footer />
 	</body>
 </html>
