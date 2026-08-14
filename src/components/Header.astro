@@ -1,5 +1,6 @@
 ---
 import { asset } from '../lib/assets';
+import { withBase } from '../lib/paths';
 import Button from './Button.astro';
 
 interface NavItem {
@@ -8,12 +9,12 @@ interface NavItem {
 }
 
 const navLinks: NavItem[] = [
-	{ href: '/#tevekenysegek', label: 'Tevékenységek' },
-	{ href: '/#referenciak', label: 'Referenciák' },
-	{ href: '/rolunk', label: 'Rólunk' },
+	{ href: withBase('/#tevekenysegek'), label: 'Tevékenységek' },
+	{ href: withBase('/#referenciak'), label: 'Referenciák' },
+	{ href: withBase('/rolunk'), label: 'Rólunk' },
 ];
 
-const contactLink: NavItem = { href: '/#kapcsolat', label: 'Kapcsolat' };
+const contactLink: NavItem = { href: withBase('/#kapcsolat'), label: 'Kapcsolat' };
 
 const linkClass =
 	'rounded-full px-5 py-4 text-center text-base font-medium leading-none text-body-dark transition-colors hover:bg-accent-main/34 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-main';
@@ -26,7 +27,7 @@ const linkClass =
 	<div
 		class="relative mx-auto flex max-w-content items-center justify-between py-2 px-5 md:px-8 lg:px-16"
 	>
-		<a href="/" aria-label="BSIS logó" class="relative z-10 shrink-0">
+		<a href={withBase('/')} aria-label="BSIS logó" class="relative z-10 shrink-0">
 			<img
 				src={asset('global/logo.png')}
 				alt="BSIS logó"

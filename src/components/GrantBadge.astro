@@ -1,9 +1,10 @@
 ---
 import { asset } from '../lib/assets';
+import { withBase } from '../lib/paths';
 ---
 
 <a
-	href="/palyazati-tamogatas"
+	href={withBase('/palyazati-tamogatas')}
 	data-grant-badge
 	aria-label="Pályázati támogatás"
 	class="fixed right-4 bottom-4 z-40 transition-opacity duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-main"

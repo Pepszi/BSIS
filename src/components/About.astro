@@ -1,5 +1,6 @@
 ---
 import { asset } from '../lib/assets';
+import { withBase } from '../lib/paths';
 import Button from './Button.astro';
 
 interface Service {
@@ -94,7 +95,7 @@ const secondRowServices: Service[] = [
 							</div>
 						))
 					}
-					<Button href="/rolunk" variant="secondary" class="self-start">
+					<Button href={withBase('/rolunk')} variant="secondary" class="self-start">
 						Bővebben rólunk
 					</Button>
 				</div>
