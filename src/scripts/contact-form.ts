@@ -1,11 +1,59 @@
-// Submits the contact form through FormSubmit AJAX and reveals the in-place success message.
+// Submits the contact form to Formspark with Botpoison spam protection.
 
-const CONTACT_ENDPOINT = 'https://formsubmit.co/ajax/madacsi.peter.98@gmail.com';
+const BOTPOISON_PUBLIC_KEY = 'pk_89a0553a-6345-4e19-bd2d-2366c13ff807';
+const BOTPOISON_SCRIPT_SRC = 'https://unpkg.com/@botpoison/browser';
+
+interface BotpoisonClient {
+	challenge: () => Promise<{ solution: string }>;
+}
+
+declare global {
+	interface Window {
+		Botpoison?: new (options: { publicKey: string }) => BotpoisonClient;
+	}
+}
 
 function showSuccess(form: HTMLFormElement, success: HTMLElement) {
 	form.hidden = true;
 	success.hidden = false;
 	success.focus();
+}
+
+function loadBotpoisonScript(): Promise<void> {
+	if (window.Botpoison) return Promise.resolve();
+
+	return new Promise((resolve, reject) => {
+		const existing = document.querySelector<HTMLScriptElement>(
+			'script[data-botpoison="true"]',
+		);
+		if (existing) {
+			existing.addEventListener('load', () => resolve(), { once: true });
+			existing.addEventListener('error', () => reject(new Error('Botpoison failed to load')), {
+				once: true,
+			});
+			return;
+		}
+
+		const script = document.createElement('script');
+		script.src = BOTPOISON_SCRIPT_SRC;
+		script.async = true;
+		script.dataset.botpoison = 'true';
+		script.onload = () => resolve();
+		script.onerror = () => reject(new Error('Botpoison failed to load'));
+		document.head.appendChild(script);
+	});
+}
+
+async function getBotpoisonSolution(): Promise<string> {
+	await loadBotpoisonScript();
+
+	if (!window.Botpoison) {
+		throw new Error('Botpoison unavailable');
+	}
+
+	const botpoison = new window.Botpoison({ publicKey: BOTPOISON_PUBLIC_KEY });
+	const result = await botpoison.challenge();
+	return result.solution;
 }
 
 function initContactForm() {
@@ -16,37 +64,34 @@ function initContactForm() {
 
 	if (!form || !success) return;
 
+	const action = form.getAttribute('action');
+	if (!action?.startsWith('https://submit-form.com')) return;
+
 	form.addEventListener('submit', async (event) => {
 		event.preventDefault();
-
-		const honey = form.querySelector<HTMLInputElement>('[name="_honey"]');
-		if (honey?.value) {
-			showSuccess(form, success);
-			return;
-		}
-
-		const payload: Record<string, string> = {};
-		new FormData(form).forEach((value, key) => {
-			if (key === '_honey') return;
-			payload[key] = String(value);
-		});
 
 		submit?.setAttribute('disabled', 'true');
 		errorEl?.classList.add('hidden');
 
 		try {
-			const response = await fetch(CONTACT_ENDPOINT, {
+			const solution = await getBotpoisonSolution();
+			const body = new URLSearchParams();
+
+			new FormData(form).forEach((value, key) => {
+				body.append(key, String(value));
+			});
+			body.append('_botpoison', solution);
+
+			const response = await fetch(action, {
 				method: 'POST',
 				headers: {
-					'Content-Type': 'application/json',
+					'Content-Type': 'application/x-www-form-urlencoded',
 					Accept: 'application/json',
 				},
-				body: JSON.stringify(payload),
+				body: body.toString(),
 			});
-			const data: { success?: boolean | string } = await response.json();
-			const succeeded = data.success === true || data.success === 'true';
 
-			if (!response.ok || !succeeded) {
+			if (!response.ok) {
 				throw new Error('Submit failed');
 			}
 
